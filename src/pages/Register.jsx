@@ -4,20 +4,24 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../assets/hook/useAxiosPublic";
+import SocialLogin from "./Shared/SocialLogin";
 
 
 const Register = () => {
-
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        console.log(data);
+        // Create user with email and password
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+                console.log('User created:', loggedUser);
+    
+                // Show success alert for account creation
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -25,22 +29,51 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        console.log('user profile info updated')
-                        reset();
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'User updated successfully.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        navigate('/');
-
-                    })
-                    .catch(error => console.log(error))
+    
+                // Update the user's profile
+                return updateUserProfile(data.name, data.photoURL);
             })
+            .then(() => {
+                console.log('User profile updated successfully.');
+    
+                // Prepare user info for database
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    photoURL: data.photoURL
+                };
+    
+                // Save user info in the database
+                return axiosPublic.post('/users', userInfo);
+            })
+            .then(res => {
+                if (res.data.insertedId) {
+                    console.log('User profile info saved to the database.');
+    
+                    // Reset the form
+                    reset();
+    
+                    // Show success alert for profile update
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'User updated successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+    
+                    // Navigate to home page
+                    navigate('/');
+                }
+            })
+            .catch(error => {
+                console.error('Error occurred:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                });
+            });
     };
 
 
@@ -102,6 +135,7 @@ const Register = () => {
                             </div>
                         </form>
                         <p><small>Already have an account <Link to="/login">Login</Link></small></p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

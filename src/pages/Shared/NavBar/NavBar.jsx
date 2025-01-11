@@ -5,7 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../../assets/hook/useCart";
 
 const NavBar = () => {
-    const { user, logOut } = useContext (AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [cart] = useCart();
 
     const handleLogOut = () => {
@@ -24,7 +24,7 @@ const NavBar = () => {
                 </button>
             </Link>
         </li>
-      
+
         {
             user ? <>
                 {/* <span>{user?.displayName}</span> */}
@@ -33,7 +33,7 @@ const NavBar = () => {
                 <li><Link to="/login">Login</Link></li>
             </>
         }
-     
+
     </>
 
     return (
@@ -48,7 +48,7 @@ const NavBar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                   <Link to='/'> <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a></Link>
+                    <Link to='/'> <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
