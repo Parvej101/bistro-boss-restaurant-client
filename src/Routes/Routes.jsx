@@ -10,6 +10,8 @@ import Register from "../pages/Register";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import Cart from "../Layout/Dashboard/Cart";
 import Allusers from "../Layout/Dashboard/Allusers";
+import AddItems from "../Layout/Dashboard/AddItems";
+import AdminRoutes from "./AdminRoutes";
 
 
   export const router = createBrowserRouter([
@@ -50,7 +52,11 @@ import Allusers from "../Layout/Dashboard/Allusers";
         // Admin routes
         {
           path: 'users',
-          element: <Allusers></Allusers>
+          element: <AdminRoutes><Allusers></Allusers></AdminRoutes>
+        },
+        {
+          path: 'addItems',
+          element: <AdminRoutes><AddItems></AddItems></AdminRoutes>
         },
       ]
     },

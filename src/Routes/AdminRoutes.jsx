@@ -3,8 +3,8 @@ import Auth from '../assets/hook/Auth';
 import { Navigate, useLocation } from 'react-router-dom';
 import useAdmin from '../assets/hook/useAdmin';
 
-const AdminRoutes = (children) => {
-    const [user, loading] = Auth()
+const AdminRoutes = ({children}) => {
+    const {user, loading} = Auth()
     const location = useLocation();
     const [isAdmin, isAdminLoading] = useAdmin()
     if (loading || isAdminLoading) {
@@ -13,7 +13,7 @@ const AdminRoutes = (children) => {
     if (user && isAdmin) {
         return children;
     }
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>
+    return <Navigate to="/" state={{ from: location }} replace></Navigate>
 };
 
 export default AdminRoutes; 
