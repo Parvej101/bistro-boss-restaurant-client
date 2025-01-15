@@ -3,10 +3,12 @@ import { AuthContext } from "../../../Context/AuthProvider";
 import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../../assets/hook/useCart";
+import useAdmin from "../../../assets/hook/useAdmin";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [cart] = useCart();
+    const [isAdmin] = useAdmin()
 
     const handleLogOut = () => {
         logOut()
@@ -16,6 +18,14 @@ const NavBar = () => {
     const navOptions = <>
         <li><Link to="menu">Our Menu</Link></li>
         <li><Link to="orderFood/salad">Order Food</Link></li>
+
+        {
+            user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
+        }
+        {
+            user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+        }
+
         <li>
             <Link to="/dashboard/cart">
                 <button className="btn">
@@ -51,7 +61,7 @@ const NavBar = () => {
                     <Link to='/'> <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="items-center menu menu-horizontal px-1">
                         {navOptions}
                     </ul>
                 </div>

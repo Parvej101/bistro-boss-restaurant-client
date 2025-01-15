@@ -16,6 +16,8 @@ import ManageItems from "../Layout/Dashboard/ManageItems";
 import UpdateItems from "../Layout/Dashboard/UpdateItems";
 import Payment from "../Layout/Dashboard/Payment";
 import PaymentHistory from "../Layout/Dashboard/PaymentHistory";
+import UserHome from "../Layout/Dashboard/UserHome";
+import AdminHome from "../Layout/Dashboard/AdminHome";
 
 
 
@@ -52,6 +54,10 @@ import PaymentHistory from "../Layout/Dashboard/PaymentHistory";
       element: <Dashboard></Dashboard>,
       children: [
         {
+          path: 'userHome',
+          element: <UserHome></UserHome>
+        },
+        {
           path: 'cart',
           element: <Cart></Cart>
         },
@@ -67,6 +73,10 @@ import PaymentHistory from "../Layout/Dashboard/PaymentHistory";
         {
           path: 'users',
           element: <AdminRoutes><Allusers></Allusers></AdminRoutes>
+        },
+        {
+          path: 'adminHome',
+          element: <AdminRoutes> <AdminHome></AdminHome> </AdminRoutes>
         },
         {
           path: 'addItems',
