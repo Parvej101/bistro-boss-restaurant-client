@@ -14,6 +14,8 @@ import AddItems from "../Layout/Dashboard/AddItems";
 import AdminRoutes from "./AdminRoutes";
 import ManageItems from "../Layout/Dashboard/ManageItems";
 import UpdateItems from "../Layout/Dashboard/UpdateItems";
+import Payment from "../Layout/Dashboard/Payment";
+import PaymentHistory from "../Layout/Dashboard/PaymentHistory";
 
 
 
@@ -42,6 +44,7 @@ import UpdateItems from "../Layout/Dashboard/UpdateItems";
           path: 'register',
           element:<Register></Register>
         },
+       
       ]
     },
     {
@@ -51,6 +54,14 @@ import UpdateItems from "../Layout/Dashboard/UpdateItems";
         {
           path: 'cart',
           element: <Cart></Cart>
+        },
+        {
+          path: 'payment',
+          element: <Payment></Payment>
+        },
+        {
+          path: 'paymentHistory',
+          element: <PaymentHistory></PaymentHistory>
         },
         // Admin routes
         {
